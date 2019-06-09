@@ -61,6 +61,14 @@ void Enemy::setXLoc(){
     mvwaddch(curwin, yLoc, xLoc, ' ');
     xLoc = rand() % 47 + 6;
 };
+void Enemy::setYLoc(int y){
+    mvwaddch(curwin, yLoc, xLoc, ' ');
+    yLoc = y;
+};
+void Enemy::setXLoc(int x){
+    mvwaddch(curwin, yLoc, xLoc, ' ');
+    xLoc = x;
+};
 // void Enemy::setShotsFired(){
 //     shotsFired = false;
 // };

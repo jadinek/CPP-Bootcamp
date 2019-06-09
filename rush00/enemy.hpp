@@ -20,6 +20,8 @@ class Enemy{
         int getYLoc();
         void setYLoc();
         void setXLoc();
+        void setYLoc(int y);
+        void setXLoc(int x);
         // void deleteBullet();
         // void setShotsFired();
         // bool getShotsFired();
