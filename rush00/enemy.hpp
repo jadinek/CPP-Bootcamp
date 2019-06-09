@@ -9,13 +9,19 @@ class Enemy{
     Enemy(WINDOW * win, int y, int x, char c);
 
     // void mvup();
-    // void mvdown();
+    void mvdown();
     void mvleft();
     void mvright();
-    // int getmv();
+    int getmv();
     void display();
-    // void shoot();
+    void shoot();
     void displayBullet();
+    int getXLoc();
+    int getYLoc();
+    WINDOW* getWin();
+    // void hasDied();
+    void setYLoc();
+    void setXLoc();
 
     private:
     int xLoc, yLoc, xMax, yMax;
@@ -30,61 +36,87 @@ Enemy::Enemy(WINDOW * win, int y, int x, char c){
     yLoc = y;
     xLoc = x;
     getmaxyx(curwin, yMax, xMax);
-    // std::cout << yMax << std::endl;
     keypad(curwin, true);
     character = c;
 };
-// void Enemy::shoot(){
-//     yBullet = yLoc - 1;
-//     while (yBullet != 0){
-//         displayBullet();
-//         yBullet--;
-//     }
-// };
-// void Player::mvdown(){
-//     mvwaddch(curwin, yLoc, xLoc, ' ');
-//     yLoc++;
-//     // if(yLoc > yMax-2)
-//     //     yLoc = yMax-2;
-// };
+void Enemy::shoot(){
+    yBullet = yLoc - 1;
+    while (yBullet != 0){
+        displayBullet();
+        yBullet--;
+    }
+};
+void Enemy::mvdown(){
+    mvwaddch(curwin, yLoc, xLoc, ' ');
+    yLoc++;
+    if(yLoc > yMax-2)
+        yLoc = yMax-2;
+};
 void Enemy::mvleft(){
+    mvdown();
     mvwaddch(curwin, yLoc, xLoc, ' ');
     xLoc--;
     if(xLoc < 1)
         xLoc = 1;
 };
 void Enemy::mvright(){
+    mvdown();
     mvwaddch(curwin, yLoc, xLoc, ' ');
     xLoc++;
     if(xLoc > xMax-2)
         xLoc = xMax-2;
 };
-// int Enemy::getmv(){
-//     int choice =  wgetch(curwin);
-//     switch(choice)
-//     {
-//         case KEY_UP:
-//             shoot();
-//             break;
-//         // case KEY_DOWN:
-//         //     mvdown();
-//         //     break;
-//         case KEY_RIGHT:
-//             mvright();
-//             break;
-//         case KEY_LEFT:
-//             mvleft();
-//             break;
-//         default:
-//             break;
-//     }
-//     return choice;
-// };
+int Enemy::getmv(){
+    srand(time(0));
+    int choice =  rand() %3 + 1;
+    switch(choice)
+    {
+        case 1:
+            mvdown();
+            break;
+        case 2:
+            mvright();
+            break;
+        case 3:
+            mvleft();
+            break;
+        default:
+            break;
+    }
+    return choice;
+};
 void Enemy::display(){
     mvwaddch(curwin, yLoc, xLoc, character);
 };
 void Enemy::displayBullet(){
     mvwaddch(curwin, yBullet, xLoc, bullet);
+};
+
+int Enemy::getXLoc(){
+    return xLoc;
+};
+int Enemy::getYLoc(){
+    return yLoc;
+};
+
+WINDOW* Enemy::getWin(){
+    return curwin;
+};
+
+// void Enemy::hasDied(){
+//     delete curwin;
+// };
+
+void Enemy::setYLoc(){
+    mvwaddch(curwin, yLoc, xLoc, ' ');
+    yLoc = rand() %20 + 7;
+    // std::cout << "new yLoc = " << yLoc << std::endl;
+};
+void Enemy::setXLoc(){
+    mvwaddch(curwin, yLoc, xLoc, ' ');
+    xLoc = rand() % 49 + 5;
+
+    // std::cout << "new xLoc = " << xLoc << std::endl;
 };
 
 #endif

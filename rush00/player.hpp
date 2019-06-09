@@ -3,10 +3,6 @@
 
 #include <iostream>
 #include <ncurses.h>
-#include <unistd.h>
-#include <dos.h>
-
-#define DELAY 3000
 
 class Player{
     public:
@@ -20,33 +16,45 @@ class Player{
     void display();
     void shoot();
     void displayBullet();
+    int getLives();
+    // int getTime();
+    // int getScore();
     void deleteBullet();
+    int getXLoc();
+    int getYLoc();
+    void setLives();
 
     private:
     int xLoc, yLoc, xMax, yMax;
     char character;
     static const char bullet = '.';
     int yBullet;
+    // int health;
+    int lives;
+    // int score;
     WINDOW *curwin;
 };
 
 Player::Player(WINDOW * win, int y, int x, char c){
+    // health = 5;
+    lives = 3;
     curwin = win;
     yLoc = y;
     xLoc = x;
     getmaxyx(curwin, yMax, xMax);
-    // std::cout << yMax << std::endl;
     keypad(curwin, true);
     character = c;
 };
 void Player::shoot(){
     yBullet = yLoc - 1;
-    while (yBullet != 0){
+    while (yBullet >= 4){
         displayBullet();
-        delay(3000);
-        // deleteBullet();
+        // wrefresh(curwin);
         yBullet--;
     }
+    // display();
+    // wrefresh(curwin);
+    // deleteBullet();
 };
 void Player::mvleft(){
     mvwaddch(curwin, yLoc, xLoc, ' ');
@@ -88,7 +96,31 @@ void Player::displayBullet(){
     mvwaddch(curwin, yBullet, xLoc, bullet);
 };
 void Player::deleteBullet(){
-    mvwaddch(curwin, yBullet+1, xLoc, ' ');
+    yBullet = yLoc - 1;
+    while (yBullet >= 4){
+        mvwaddch(curwin, yBullet, xLoc, ' ');
+        yBullet--;
+    }
+};
+
+int Player::getLives(){
+    return lives;
+};
+// int Player::getTime(){
+
+// };
+// int Player::getScore(){
+//     return score;
+// };
+
+int Player::getXLoc(){
+    return xLoc;
+};
+int Player::getYLoc(){
+    return yLoc;
+};
+void Player::setLives(){
+    lives = lives - 1;
 };
 
 #endif
