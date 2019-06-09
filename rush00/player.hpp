@@ -27,7 +27,7 @@ class Player{
     private:
     int xLoc, yLoc, xMax, yMax;
     char character;
-    static const char bullet = '.';
+    static const char bullet = '|';
     int yBullet;
     // int health;
     int lives;
@@ -75,9 +75,6 @@ int Player::getmv(){
         case KEY_UP:
             shoot();
             break;
-        // case KEY_DOWN:
-        //     mvdown();
-        //     break;
         case KEY_RIGHT:
             mvright();
             break;
@@ -120,7 +117,7 @@ int Player::getYLoc(){
     return yLoc;
 };
 void Player::setLives(){
-    lives = lives - 1;
+    lives--;
 };
 
 #endif

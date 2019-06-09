@@ -18,7 +18,7 @@ class Enemy{
     void displayBullet();
     int getXLoc();
     int getYLoc();
-    WINDOW* getWin();
+    // WINDOW* getWin();
     // void hasDied();
     void setYLoc();
     void setXLoc();
@@ -99,22 +99,14 @@ int Enemy::getYLoc(){
     return yLoc;
 };
 
-WINDOW* Enemy::getWin(){
-    return curwin;
-};
-
-// void Enemy::hasDied(){
-//     delete curwin;
-// };
-
 void Enemy::setYLoc(){
     mvwaddch(curwin, yLoc, xLoc, ' ');
-    yLoc = rand() %20 + 7;
+    yLoc = rand() % 21 + 7;
     // std::cout << "new yLoc = " << yLoc << std::endl;
 };
 void Enemy::setXLoc(){
     mvwaddch(curwin, yLoc, xLoc, ' ');
-    xLoc = rand() % 49 + 5;
+    xLoc = rand() % 47 + 6;
 
     // std::cout << "new xLoc = " << xLoc << std::endl;
 };
