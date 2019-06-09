@@ -1,5 +1,15 @@
 #include "player.hpp"
 
+Player::Player(void){};
+Player::Player(Player const &p){
+    *this = p;
+};
+Player::~Player(){};
+Player &Player::operator =(Player const &p){
+    this->xLoc = p.xLoc;
+	this->yLoc = p.yLoc;
+	return (*this);
+};
 Player::Player(WINDOW * win, int y, int x, char c){
     score = 0;
     lives = 3;

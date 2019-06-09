@@ -6,6 +6,10 @@
 
 class Player{
     public:
+        Player(void);
+        Player(Player const &p);
+        ~Player();
+        Player &operator =(Player const &p);
         Player(WINDOW * win, int y, int x, char c);
         void mvleft();
         void mvright();

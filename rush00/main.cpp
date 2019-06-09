@@ -90,6 +90,7 @@ int main(){
             outOfRange(e1);
             outOfRange(e2);
             outOfRange(e3);
+            box(playwin, 0, 0);
             wrefresh(playwin);
         }
         if (p->getLives() == 0){
