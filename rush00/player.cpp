@@ -1,57 +1,24 @@
-#ifndef RUSH00_HPP
-#define RUSH00_HPP
-
-#include <iostream>
-#include <ncurses.h>
-
-class Player{
-    public:
-    Player(WINDOW * win, int y, int x, char c);
-
-    // void mvup();
-    // void mvdown();
-    void mvleft();
-    void mvright();
-    int getmv();
-    void display();
-    void shoot();
-    void displayBullet();
-
-    private:
-    int xLoc, yLoc, xMax, yMax;
-    char character;
-    static const char bullet = '.';
-    int yBullet;
-    WINDOW *curwin;
-};
+#include "player.hpp"
 
 Player::Player(WINDOW * win, int y, int x, char c){
+    score = 0;
+    lives = 3;
+    shotsFired = false;
     curwin = win;
     yLoc = y;
     xLoc = x;
     getmaxyx(curwin, yMax, xMax);
-    // std::cout << yMax << std::endl;
     keypad(curwin, true);
     character = c;
 };
 void Player::shoot(){
     yBullet = yLoc - 1;
-    while (yBullet != 0){
+    while (yBullet >= 4){
         displayBullet();
         yBullet--;
     }
-    // mvwaddch(curwin, yLoc, xLoc, ' ');
-    // yLoc--;
-
-    // if(yLoc < 1)
-    //     yLoc = 1;
+    shotsFired = true;
 };
-// void Player::mvdown(){
-//     mvwaddch(curwin, yLoc, xLoc, ' ');
-//     yLoc++;
-//     // if(yLoc > yMax-2)
-//     //     yLoc = yMax-2;
-// };
 void Player::mvleft(){
     mvwaddch(curwin, yLoc, xLoc, ' ');
     xLoc--;
@@ -71,9 +38,6 @@ int Player::getmv(){
         case KEY_UP:
             shoot();
             break;
-        // case KEY_DOWN:
-        //     mvdown();
-        //     break;
         case KEY_RIGHT:
             mvright();
             break;
@@ -91,5 +55,34 @@ void Player::display(){
 void Player::displayBullet(){
     mvwaddch(curwin, yBullet, xLoc, bullet);
 };
-
-#endif
+void Player::deleteBullet(){
+    yBullet = yLoc - 1;
+    while (yBullet >= 4){
+        mvwaddch(curwin, yBullet, xLoc, ' ');
+        yBullet--;
+    }
+};
+int Player::getLives(){
+    return lives;
+};
+void Player::setScore(){
+    score++;
+};
+int Player::getScore(){
+    return score;
+};
+int Player::getXLoc(){
+    return xLoc;
+};
+int Player::getYLoc(){
+    return yLoc;
+};
+void Player::setLives(){
+    lives--;
+};
+void Player::setShotsFired(){
+    shotsFired = false;
+};
+bool Player::getShotsFired(){
+    return shotsFired;
+};
