@@ -1,5 +1,4 @@
 NAME     := ft_retro
-
 SRCS     := main.cpp player.cpp enemy.cpp
 HDRS     := enemy.hpp player.hpp
 OBJS     := $(SRCS:.cpp=.o)

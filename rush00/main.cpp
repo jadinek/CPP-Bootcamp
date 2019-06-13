@@ -76,12 +76,20 @@ void destroyEnemy(Player *p, Enemy *e1, Enemy *e2){
     }
 }
 
+int time(int secondsLeft)
+{   
+    secondsLeft++;
+    return (secondsLeft);
+}
+
 int main(){
     // ncurses start
     initscr();
     noecho();
     cbreak();
     curs_set(FALSE);
+
+    int secondsLeft = 0;
 
     // create a window for input
     WINDOW *playwin = newwin(23, 55, 0, 0);
@@ -99,7 +107,7 @@ int main(){
     Enemy *e4 = new Enemy(playwin, 4, 9, enemy3);
 
     while(1){
-        mvwprintw(playwin, 1, 1, "TIME %d", 1);
+        mvwprintw(playwin, 1, 1, "TIME %d", time(secondsLeft++));
         mvwprintw(playwin, 2, 1, "LIVES %d", p->getLives());
         mvwprintw(playwin, 3, 1, "SCORE %d", p->getScore());
         mvwprintw(playwin, 4, 1, "-----------------------------------------------------");
@@ -142,9 +150,12 @@ int main(){
             std::cout << "GAME OVER" << std::endl;
             std::cin >> input;
             break;
+    }   else if (p->time(secondsLeft) == 120){
+            std::cout << "YOUR TIME HAS RUN OUT" << std::endl;
+            std::cin >> input;
+            break;
         }
     }
-
     endwin();
 
 return 0;

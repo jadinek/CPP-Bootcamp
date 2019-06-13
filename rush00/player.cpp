@@ -96,3 +96,6 @@ void Player::setShotsFired(){
 bool Player::getShotsFired(){
     return shotsFired;
 };
+int Player::time(int secondsLeft){
+    return secondsLeft;
+};

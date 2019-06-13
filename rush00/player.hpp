@@ -26,6 +26,7 @@ class Player{
         void setScore();
         void setShotsFired();
         bool getShotsFired();
+        int time(int secondsLeft);
 
     private:
         int xLoc, yLoc, xMax, yMax;
